@@ -1,5 +1,7 @@
+import NotesApps from './Pages/NotesApps';
+
 function App() {
-  return <div>Hello World</div>;
+  return <NotesApps />;
 }
 
 export default App;
