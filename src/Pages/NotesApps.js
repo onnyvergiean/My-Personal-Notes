@@ -5,22 +5,30 @@ import NoteSearch from '../Components/NoteSearch';
 import NoteTitle from '../Components/NoteTitle';
 import { getInitialData, showFormattedDate } from '../Utils/data.js';
 export default function NotesApps() {
-  const [note, setNote] = useState(getInitialData());
+  const [initialData, setInitialData] = useState(getInitialData());
+  const [note, setNote] = useState(initialData);
   const inputNoteHandler = ({ title, body }) => {
-    setNote([
-      ...note,
-      {
-        id: +new Date(),
-        title,
-        body,
-        createdAt: showFormattedDate(new Date()),
-        archived: false,
-      },
-    ]);
+    let newNote = [];
+    setNote(() => {
+      newNote = [
+        ...note,
+        {
+          id: +new Date(),
+          title,
+          body,
+          createdAt: showFormattedDate(new Date()),
+          archived: false,
+        },
+      ];
+      return newNote;
+    });
+    setInitialData(newNote);
   };
 
   const deleteNoteHandler = (id) => {
-    setNote(note.filter((note) => note.id !== id));
+    const filteredNote = note.filter((note) => note.id !== id);
+    setNote(filteredNote);
+    setInitialData(filteredNote);
   };
   const archiveNoteHandler = (id) => {
     setNote(
@@ -31,10 +39,14 @@ export default function NotesApps() {
         return note;
       })
     );
+    setInitialData(note);
   };
 
+  const resetNoteHandler = () => {
+    setNote(initialData);
+  };
   const searchNoteHandler = (searchTitle) => {
-    setNote(getInitialData());
+    resetNoteHandler();
     setNote((prevState) => {
       return prevState.filter((note) =>
         note.title.toLowerCase().includes(searchTitle.toLowerCase())
