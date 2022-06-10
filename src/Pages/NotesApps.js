@@ -36,7 +36,9 @@ export default function NotesApps() {
   const searchNoteHandler = (searchTitle) => {
     setNote(getInitialData());
     setNote((prevState) => {
-      return prevState.filter((note) => note.title.includes(searchTitle));
+      return prevState.filter((note) =>
+        note.title.toLowerCase().includes(searchTitle.toLowerCase())
+      );
     });
   };
 
