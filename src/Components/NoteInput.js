@@ -13,6 +13,7 @@ export default function NoteInput({ addInput }) {
       [name]: value,
     });
   };
+
   const handleSubmit = (event) => {
     const { title, body } = noteInput;
     event.preventDefault();
@@ -23,23 +24,33 @@ export default function NoteInput({ addInput }) {
     });
   };
 
+  const handleTitleLimit = (event) => {
+    const { value } = event.target;
+    let title = '';
+    value.length > 40 ? (title = value.substring(0, 40)) : (title = value);
+    setNoteInput({
+      ...noteInput,
+      title,
+    });
+  };
   return (
     <Container>
       <h2 className="title-body">Create a New Note</h2>
+      <p className="max-string">Max Character {noteInput.title.length}/40</p>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center mb-3">
-          <Col xs={12} md={12} lg={8}>
+          <Col xs={12} sm={12} md={12} lg={7}>
             <Form.Control
               placeholder="Title"
               autoComplete="false"
               name="title"
               value={noteInput.title}
-              onChange={handleChange}
+              onChange={handleTitleLimit}
             />
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col xs={12} md={12} lg={8}>
+          <Col xs={12} sm={12} md={12} lg={7}>
             <Form.Control
               as="textarea"
               placeholder="Notes"
@@ -50,7 +61,7 @@ export default function NoteInput({ addInput }) {
             />
           </Col>
         </Row>
-        <Row className="justify-content-md-center mt-3">
+        <Row className="justify-content-center mt-3">
           <button className="button-body" type="submit">
             Add New Note
           </button>

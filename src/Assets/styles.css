@@ -1,18 +1,28 @@
 * {
-  background-color: #faeee7;
   font-family: 'Roboto', sans-serif;
 }
 .title-body {
   text-align: center;
   justify-content: center;
   margin-top: 20px;
-  color: #33272a;
+  color: #272343;
 }
-
+.max-string {
+  text-align: center !important;
+  justify-content: center !important;
+  font-size: 14px;
+  color: #a7a9be;
+}
+.form-control {
+  border: 1px solid #272343;
+}
+.form-control ::placeholder {
+  color: #ff8ba7;
+}
 .button-body {
-  background-color: #ff8ba7;
+  background-color: #ffd803;
   border: none;
-  color: #33272a;
+  color: #272343;
   height: 50px;
   width: 130px;
   border-radius: 10px;
@@ -22,4 +32,24 @@
 .button-body:hover {
   transform: scale(1.04);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+svg {
+  width: 30px;
+  height: 30px;
+  margin-left: 15px;
+  margin-bottom: 4px;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+svg:hover {
+  transform: scale(1.04);
+}
+
+.empty-notes {
+  text-align: center !important;
+  justify-content: center !important;
+  font-size: 19px;
+  color: #a7a9be;
 }
