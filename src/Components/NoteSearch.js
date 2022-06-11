@@ -1,6 +1,10 @@
 import React from 'react';
 import { Container, Form, Row, Col } from 'react-bootstrap';
 export default function NoteSearch({ onSearchNote }) {
+  const searchHandler = (event) => {
+    const { value } = event.target;
+    onSearchNote(value);
+  };
   return (
     <Container className="mt-4 ">
       <h2 className="title-body">Search Note</h2>
@@ -11,7 +15,7 @@ export default function NoteSearch({ onSearchNote }) {
             autoComplete="false"
             name="title"
             className="mb-4"
-            onChange={(evt) => onSearchNote(evt.target.value)}
+            onChange={searchHandler}
           />
         </Col>
       </Row>

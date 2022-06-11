@@ -4,29 +4,28 @@ import NoteList from '../Components/NoteList';
 import NoteSearch from '../Components/NoteSearch';
 import NoteTitle from '../Components/NoteTitle';
 import { getInitialData, showFormattedDate } from '../Utils/data.js';
+
 export default function NotesApps() {
   const [initialData, setInitialData] = useState(getInitialData());
   const [note, setNote] = useState(initialData);
+  const [searchTerm, setSearchTerm] = useState('');
   const inputNoteHandler = ({ title, body }) => {
-    let newNote = [];
-    setNote(() => {
-      newNote = [
-        ...note,
-        {
-          id: +new Date(),
-          title,
-          body,
-          createdAt: showFormattedDate(new Date()),
-          archived: false,
-        },
-      ];
-      return newNote;
-    });
+    let newNote = [
+      ...note,
+      {
+        id: +new Date(),
+        title,
+        body,
+        createdAt: showFormattedDate(new Date()),
+        archived: false,
+      },
+    ];
+    setNote(newNote);
     setInitialData(newNote);
   };
 
   const deleteNoteHandler = (id) => {
-    const filteredNote = note.filter((note) => note.id !== id);
+    let filteredNote = note.filter((note) => note.id !== id);
     setNote(filteredNote);
     setInitialData(filteredNote);
   };
@@ -47,11 +46,12 @@ export default function NotesApps() {
   };
   const searchNoteHandler = (searchTitle) => {
     resetNoteHandler();
-    setNote((prevState) => {
-      return prevState.filter((note) =>
-        note.title.toLowerCase().includes(searchTitle.toLowerCase())
-      );
-    });
+    // setNote((prevState) => {
+    //   return prevState.filter((note) =>
+    //     note.title.toLowerCase().includes(searchTitle.toLowerCase())
+    //   );
+    // });
+    setSearchTerm(searchTitle);
   };
 
   return (
@@ -60,13 +60,15 @@ export default function NotesApps() {
       <NoteSearch onSearchNote={searchNoteHandler} />
       <NoteTitle />
       <NoteList
-        notes={note.filter((item) => !item.archived)}
+        searchTerm={searchTerm}
+        notes={note.filter((note) => !note.archived)}
         onDeleteNote={deleteNoteHandler}
         onArchiveNote={archiveNoteHandler}
       />
       <NoteTitle title="Archived" />
       <NoteList
-        notes={note.filter((item) => item.archived)}
+        searchTerm={searchTerm}
+        notes={note.filter((note) => note.archived)}
         onDeleteNote={deleteNoteHandler}
         onArchiveNote={archiveNoteHandler}
       />
