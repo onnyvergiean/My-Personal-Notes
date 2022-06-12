@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 import NoteInput from '../Components/NoteInput';
 import NoteList from '../Components/NoteList';
 import NoteSearch from '../Components/NoteSearch';
@@ -46,16 +47,12 @@ export default function NotesApps() {
   };
   const searchNoteHandler = (searchTitle) => {
     resetNoteHandler();
-    // setNote((prevState) => {
-    //   return prevState.filter((note) =>
-    //     note.title.toLowerCase().includes(searchTitle.toLowerCase())
-    //   );
-    // });
     setSearchTerm(searchTitle);
   };
 
   return (
     <>
+      <ToastContainer limit={1} />
       <NoteInput addInput={inputNoteHandler} />
       <NoteSearch onSearchNote={searchNoteHandler} />
       <NoteTitle />

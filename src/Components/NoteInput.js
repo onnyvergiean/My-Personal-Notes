@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Container, Form, Row, Col } from 'react-bootstrap';
-
 export default function NoteInput({ addInput }) {
   const [noteInput, setNoteInput] = useState({
     title: '',
@@ -17,11 +17,23 @@ export default function NoteInput({ addInput }) {
   const handleSubmit = (event) => {
     const { title, body } = noteInput;
     event.preventDefault();
-    addInput({ title, body });
-    setNoteInput({
-      title: '',
-      body: '',
-    });
+    if (title === '' || body === '') {
+      toast.warn('Please fill all the fields', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
+    } else {
+      addInput({ title, body });
+      setNoteInput({
+        title: '',
+        body: '',
+      });
+    }
   };
 
   const handleTitleLimit = (event) => {
